@@ -1,1 +1,54 @@
+#include <iostream>
+#include<cmath>
+#include <string>
+#include<map>
+#include<unordered_map>
+#include <vector> 
+#include <cctype>
+#include <algorithm> 
+#include <set>
+#include<unordered_set>
+#include <utility>//for pair
+#include <queue>
+#define ll long long
+#define ld long double
+using namespace std;
 
+void backtrack(vector<string>& current, vector<string>& activities, int n, int& total) 
+{
+    if (current.size() == n) 
+    {
+        for (int i = 0; i < current.size(); i++) 
+        {
+            if (i > 0)
+                cout << " ";
+            cout << current[i];
+        }
+        cout << endl;
+        total++;
+        return;
+    }
+
+    for (string act : activities) 
+    {
+        if (current.empty() || act != current.back()) 
+        {
+            current.push_back(act);
+            backtrack(current, activities, n, total);
+            current.pop_back();
+        }
+    }
+}
+
+int main() 
+{
+    int n;
+    cin >> n;
+    vector<string> activities = { "Swimming", "Running", "Football" };
+    sort(activities.begin(), activities.end());
+    vector<string> current;
+    int total = 0;
+    backtrack(current, activities, n, total);
+    cout << "COUNT: " << total << endl;
+    return 0;
+}
